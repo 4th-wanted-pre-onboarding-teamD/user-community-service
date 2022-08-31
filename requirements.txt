@@ -1,0 +1,7 @@
+# requirements.txt
+
+Django==4.1
+djangorestframework==3.13.1
+django-cors-headers==3.13.0
+mysqlclient==2.1.1
+PyMySQL==1.0.2
