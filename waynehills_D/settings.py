@@ -1,6 +1,6 @@
-import pymysql 
-
 from pathlib import Path
+
+import pymysql
 
 from my_settings import SECRET_KEY, DATABASES
 
@@ -18,10 +18,10 @@ ALLOWED_HOSTS = ['*']
 
 APPEND_SLASH = False
 
-CORS_ORIGIN_ALLOW_ALL  =True
+CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True
-    
+
 CORS_ALLOW_METHODS = (
     'DELETE',
     'GET',
@@ -40,7 +40,7 @@ CORS_ALLOW_HEADERS = (
     'origin',
     'user-agent',
     'x-csrftoken',
-    'x-requested-with',    		
+    'x-requested-with',
 )
 
 INSTALLED_APPS = [
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'apps.users.apps.UsersConfig',
 ]
 
 MIDDLEWARE = [
@@ -85,6 +86,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'waynehills_D.wsgi.application'
 
+AUTH_USER_MODEL = "users.User"
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -99,7 +102,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 LANGUAGE_CODE = 'en-us'
 
