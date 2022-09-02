@@ -7,14 +7,16 @@ from .models import User
 
 
 class RegisterSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField(style={'input_type': 'password'})
-    password_check = serializers.CharField(style={'input_type': 'password'})
-    name = serializers.CharField()
-    email = serializers.EmailField()
-    gender = serializers.ChoiceField(choices=User.GENDER_CHOICES, required=False, allow_null=True)
-    age = serializers.IntegerField(required=False, allow_null=True)
-    phone = serializers.CharField(required=False, allow_null=True)
+    username = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True, style={'input_type': 'password'})
+    password_check = serializers.CharField(write_only=True, style={'input_type': 'password'})
+    name = serializers.CharField(write_only=True)
+    email = serializers.EmailField(write_only=True)
+    gender = serializers.ChoiceField(write_only=True, choices=User.GENDER_CHOICES, required=False, allow_null=True)
+    age = serializers.IntegerField(write_only=True, required=False, allow_null=True)
+    phone = serializers.CharField(write_only=True, required=False, allow_null=True)
+    access = serializers.CharField(read_only=True)
+    refresh = serializers.CharField(read_only=True)
 
     def validate(self, attrs):
         if User.objects.filter(username=attrs['username']).exists():
@@ -24,23 +26,26 @@ class RegisterSerializer(serializers.Serializer):
         return attrs
 
     def create(self, validated_data):
-        # 사용자 생성
-        user = User.objects.create(
-            username=validated_data['username'],
-            password=make_password(validated_data['password']),
-            name=validated_data['name'],
-            email=validated_data['email'],
-        )
+        try:
+            # 사용자 생성
+            user = User.objects.create(
+                username=validated_data['username'],
+                password=make_password(validated_data['password']),
+                name=validated_data['name'],
+                email=validated_data['email'],
+            )
 
-        # 추가정보 저장
-        user.gender = validated_data.get('gender', None)
-        user.age = validated_data.get('age', None)
-        user.phone = validated_data.get('phone', None)
-        user.save()
+            # 추가정보 저장
+            user.gender = validated_data.get('gender', None)
+            user.age = validated_data.get('age', None)
+            user.phone = validated_data.get('phone', None)
+            user.save()
 
-        # 토큰 발급 후 반환
-        refresh = RefreshToken.for_user(user)
-        return {
-            'access': refresh.access_token,
-            'refresh': refresh
-        }
+            # 토큰 발급 후 반환
+            refresh = RefreshToken.for_user(user)
+            return {
+                'access': refresh.access_token,
+                'refresh': refresh
+            }
+        except:
+            raise ValidationError({'create': '오류가 발생했습니다.'})
