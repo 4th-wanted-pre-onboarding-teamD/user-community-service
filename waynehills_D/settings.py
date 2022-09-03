@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'apps.users.apps.UsersConfig',
+    'apps.boards.apps.BoardsConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +127,7 @@ REST_FRAMEWORK = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
