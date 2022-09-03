@@ -7,6 +7,8 @@ from .models import User
 
 
 class RegisterSerializer(serializers.Serializer):
+    """ 회원가입 시리얼라이저 """
+
     username = serializers.CharField(write_only=True, max_length=159)
     password = serializers.CharField(write_only=True, max_length=128, style={'input_type': 'password'})
     password_check = serializers.CharField(write_only=True, max_length=128, style={'input_type': 'password'})
@@ -20,6 +22,12 @@ class RegisterSerializer(serializers.Serializer):
     refresh = serializers.CharField(read_only=True)
 
     def validate(self, attrs):
+        """
+        회원가입 데이터를 검증합니다.
+        1. 아이디 중복 체크
+        2. 비밀번호
+        """
+
         if User.objects.filter(username=attrs['username']).exists():
             raise ValidationError({'username', '이미 존재하는 아이디입니다.'})
         if attrs['password'] != attrs['password_check']:
@@ -27,7 +35,9 @@ class RegisterSerializer(serializers.Serializer):
         return attrs
 
     def create(self, validated_data):
-        # 사용자 생성
+        """ validated_data를 받아 유저를 생성한 후 토큰을 반환합니다. """
+
+        # 유저 생성
         user = User.objects.create(
             username=validated_data['username'],
             password=make_password(validated_data['password']),
@@ -35,7 +45,7 @@ class RegisterSerializer(serializers.Serializer):
             email=validated_data['email'],
         )
 
-        # 추가정보 저장
+        # 추가 정보 저장
         user.gender = validated_data.get('gender', None)
         user.age = validated_data.get('age', None)
         user.phone = validated_data.get('phone', None)
