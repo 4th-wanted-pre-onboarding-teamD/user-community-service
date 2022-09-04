@@ -34,3 +34,10 @@ class CustomUserAdmin(UserAdmin):
         "is_staff",
         "is_superuser",
     )
+
+class UserLoginLogAdmin(admin.ModelAdmin):
+    list_display = ('user', 'ip_address', 'user_agent',)
+    list_filter = ('ip_address',)
+    date_hierarchy = 'created'
+
+admin.site.register(models.UserLoginLog, UserLoginLogAdmin)

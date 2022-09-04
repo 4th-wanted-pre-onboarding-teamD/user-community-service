@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pymysql
 
-from my_settings import SECRET_KEY, DATABASES
+from .my_settings import SECRET_KEY, DATABASES
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -110,6 +110,7 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": datetime.timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": True,
+    'UPDATE_LAST_LOGIN': True,
 }
 
 # DJANGO REST FRAMEWORK
