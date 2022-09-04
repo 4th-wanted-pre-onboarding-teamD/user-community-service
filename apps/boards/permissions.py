@@ -1,6 +1,6 @@
+from django.conf import settings
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 import jwt
-from waynehills_D.settings import SECRET_KEY
 
 
 class IsAuthenticated(BasePermission):
@@ -40,7 +40,7 @@ class IsOwnerOrReadOnly(BasePermission):
             return True
         else:
             token = request.headers.get('Authorization').split(" ")[1]
-            payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+            payload = jwt.decode(token, settings.SECRET_KEY, algorithms=settings.ALGORITHM)
             token_user = payload.get('user_id')
 
             return obj.user.id == token_user
