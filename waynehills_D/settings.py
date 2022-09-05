@@ -3,15 +3,16 @@ from pathlib import Path
 
 import pymysql
 
-from .my_settings import SECRET_KEY, DATABASES
+from my_settings import SECRET_KEY, DATABASES, ALGORITHM
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 pymysql.install_as_MySQLdb()
 
+# Envrionment Variable
 SECRET_KEY = SECRET_KEY
-
 DATABASES = DATABASES
+ALGORITHM = ALGORITHM
 
 DEBUG = True
 
@@ -19,6 +20,7 @@ ALLOWED_HOSTS = ['*']
 
 APPEND_SLASH = False
 
+# CORS Settings
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ALLOW_CREDENTIALS = True
@@ -43,6 +45,7 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-requested-with',
 )
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
