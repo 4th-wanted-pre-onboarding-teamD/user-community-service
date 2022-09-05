@@ -3,7 +3,7 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 import jwt
 
 
-class IsAuthenticated(BasePermission):
+class IsAuthenticatedOrReadOnly(BasePermission):
     """
     로그인 한 유저(액세스 토큰 있는) 접근 가능
     ERR01
@@ -11,7 +11,11 @@ class IsAuthenticated(BasePermission):
     message = "[Access Denied: ERR01] 접근 권한이 없습니다."
 
     def has_permission(self, request, view):
-        return bool(request.user and request.user.is_authenticated)
+        return bool(
+            request.method in SAFE_METHODS or
+            request.user and
+            request.user.is_authenticated
+        )
 
 
 class IsAdminUser(BasePermission):
@@ -53,7 +57,7 @@ class IsStaffOrReadOnly(BasePermission):
     일반 회원 : R
     ERR04
     """
-    message = "[Access Denied: ERR04] 게시글 수정, 삭제 권한이 없습니다."
+    message = "[Access Denied: ERR04] 게시글 등록, 수정, 삭제 권한이 없습니다."
 
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:

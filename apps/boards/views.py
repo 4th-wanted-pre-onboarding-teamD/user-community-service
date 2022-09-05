@@ -3,13 +3,13 @@ from rest_framework.response import Response
 
 from .models import NoticeBoard, FreeBoard, OperationBoard
 from .serializers import NoticeBoardSerializer, FreeBoardSerializer, OperationBoardSerializer
-from .permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly, IsAuthenticated, IsAdminUser
+from .permissions import IsOwnerOrReadOnly, IsStaffOrReadOnly, IsAuthenticatedOrReadOnly, IsAdminUser
 
 
 class NoticeBoardView(ListCreateAPIView):
     queryset = NoticeBoard.objects.all()
     serializer_class = NoticeBoardSerializer
-    permission_classes = [IsAuthenticated, IsStaffOrReadOnly]
+    permission_classes = [IsStaffOrReadOnly]
 
     def perform_create(self, serializer):
         # 현재 요청한 유저를 작성자로 설정
@@ -19,7 +19,7 @@ class NoticeBoardView(ListCreateAPIView):
 class NoticeBoardDetailView(RetrieveUpdateDestroyAPIView):
     queryset = NoticeBoard.objects.all()
     serializer_class = NoticeBoardSerializer
-    permission_classes = [IsAuthenticated, IsStaffOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [IsStaffOrReadOnly, IsOwnerOrReadOnly]
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -32,7 +32,7 @@ class NoticeBoardDetailView(RetrieveUpdateDestroyAPIView):
 class FreeBoardView(ListCreateAPIView):
     queryset = FreeBoard.objects.all()
     serializer_class = FreeBoardSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         # 현재 요청한 유저를 작성자로 설정
@@ -42,7 +42,7 @@ class FreeBoardView(ListCreateAPIView):
 class FreeBoardDetailView(RetrieveUpdateDestroyAPIView):
     queryset = FreeBoard.objects.all()
     serializer_class = FreeBoardSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -55,7 +55,7 @@ class FreeBoardDetailView(RetrieveUpdateDestroyAPIView):
 class OperationBoardView(ListCreateAPIView):
     queryset = OperationBoard.objects.all()
     serializer_class = OperationBoardSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAdminUser]
 
     def perform_create(self, serializer):
         # 현재 요청한 유저를 작성자로 설정
@@ -65,7 +65,7 @@ class OperationBoardView(ListCreateAPIView):
 class OperationBoardDetailView(RetrieveUpdateDestroyAPIView):
     queryset = OperationBoard.objects.all()
     serializer_class = OperationBoardSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser, IsOwnerOrReadOnly]
+    permission_classes = [IsAdminUser, IsOwnerOrReadOnly]
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
