@@ -3,8 +3,8 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .models import User
 
+from .models import User, UserLog
 
 class RegisterSerializer(serializers.Serializer):
     """ 회원가입 시리얼라이저 """
@@ -57,3 +57,10 @@ class RegisterSerializer(serializers.Serializer):
             'access': refresh.access_token,
             'refresh': refresh
         }
+
+
+class UserLogSerializer(serializers.ModelSerializer):
+    """ 유저 로그인 로그 시리얼라이저 """
+    class Meta:
+        model = UserLog
+        fields = ["user", "login_date"]

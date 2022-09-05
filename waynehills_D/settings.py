@@ -132,7 +132,8 @@ TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
-USE_TZ = True
+# DB에 변경된 Timezone 반영
+USE_TZ = False
 
 STATIC_URL = 'static/'
 

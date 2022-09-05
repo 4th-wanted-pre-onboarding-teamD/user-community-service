@@ -16,6 +16,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=13, null=True, blank=True)
 
 class UserLoginLog(TimeStampedModel):
+    """ admin 페이지 로그인 기록 모델 - superuser 전용"""
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_('User'),
@@ -39,3 +40,8 @@ class UserLoginLog(TimeStampedModel):
 
     def __str__(self):
         return '%s %s' % (self.user, self.ip_address)
+
+class UserLog(models.Model):
+    """유저 로그인 로그 기록 모델"""
+    user = models.ForeignKey('users.User', on_delete=models.CASCADE)
+    login_date = models.DateTimeField("login_date", auto_now_add=True)
