@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pymysql
 
-from .my_settings import SECRET_KEY, DATABASES, ALGORITHM
+from my_settings import SECRET_KEY, DATABASES, ALGORITHM
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -45,6 +45,7 @@ CORS_ALLOW_HEADERS = (
     'x-csrftoken',
     'x-requested-with',
 )
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
