@@ -32,3 +32,4 @@ class CustomTokenObtainPairView(TokenObtainPairView):
     class Meta:
         model = UserLog
         fields = ["username", "login_date"]
+
