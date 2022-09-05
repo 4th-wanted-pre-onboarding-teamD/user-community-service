@@ -1,12 +1,16 @@
 asgiref==3.5.2
-cffi==1.15.1
-cryptography==37.0.4
+bleach==5.0.1
+certifi @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_83242e7e-f82d-4a71-8ef2-9d71d212d249gu_wxmeq/croots/recipe/certifi_1655968827803/work/certifi
 Django==4.1
 django-cors-headers==3.13.0
+django-ipware==4.0.2
+django-model-utils==4.2.0
 djangorestframework==3.13.1
 djangorestframework-simplejwt==5.2.0
-pycparser==2.21
+drf-api-logger==1.1.10
 PyJWT==2.4.0
 PyMySQL==1.0.2
 pytz==2022.2.1
+six==1.16.0
 sqlparse==0.4.2
+webencodings==0.5.1

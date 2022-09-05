@@ -113,6 +113,7 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": datetime.timedelta(hours=1),
     "REFRESH_TOKEN_LIFETIME": datetime.timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": True,
+    'UPDATE_LAST_LOGIN': True,
 }
 
 # DJANGO REST FRAMEWORK
@@ -134,7 +135,8 @@ TIME_ZONE = 'Asia/Seoul'
 
 USE_I18N = True
 
-USE_TZ = True
+# DB에 변경된 Timezone 반영
+USE_TZ = False
 
 STATIC_URL = 'static/'
 
