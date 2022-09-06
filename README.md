@@ -109,6 +109,7 @@
 ### 임한구
 1. Unit Test Code 구현
      - APITestCase 클래스 사용
+     - User CRUD 기능에 대한 Test Code
      - Board CRUD + permission 기능에 대한 Test Code
 2. 구현부분
      - users app API 3종(로그인, 회원가입, 회원탈퇴)
