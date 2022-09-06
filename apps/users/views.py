@@ -26,9 +26,11 @@ class WithdrawalView(DestroyAPIView):
 
         return self.request.user
 
+
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
 
     class Meta:
         model = UserLog
         fields = ["username", "login_date"]
+
